@@ -9,45 +9,50 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject clickToPlay;
     [SerializeField] public GameObject winPanel;
     [SerializeField] public GameObject losePanel;
-
-    public void ShowIntro()
+    public static UIManager instance;
+    private void Awake()
+    {
+        instance= this;
+    }
+    public void CloseAll()
     {
         joystick.SetActive(false);
-        introPanel.SetActive(true);
+        introPanel.SetActive(false);
         clickToPlay.SetActive(false);
         winPanel.SetActive(false);
         losePanel.SetActive(false);
+    }
+    public void ShowIntro()
+    {
+        CloseAll();
+        introPanel.SetActive(true);
     }
     public void ShowClickToPlay()
     {
-        joystick.SetActive(false);
-        introPanel.SetActive(false);
+        CloseAll();
         clickToPlay.SetActive(true);
-        winPanel.SetActive(false);
-        losePanel.SetActive(false);
     }
     public void HideClickToPlay()
     {
+        CloseAll();
         joystick.SetActive(true);
-        introPanel.SetActive(false);
-        clickToPlay.SetActive(false);
-        winPanel.SetActive(false);
-        losePanel.SetActive(false);
     }
     public void ShowWinPanel()
     {
-        joystick.SetActive(false);
-        introPanel.SetActive(false);
-        clickToPlay.SetActive(false);
+        CloseAll();
         winPanel.SetActive(true);
-        losePanel.SetActive(false);
     }
     public void ShowLosePanel ()
     {
-        joystick.SetActive(false);
-        introPanel.SetActive(false);
-        clickToPlay.SetActive(false);
-        winPanel.SetActive(false);
+        CloseAll();
         losePanel.SetActive(true);
+    }
+    public void ShowJoystick()
+    {
+        joystick.SetActive(true);
+    }
+    public void HideJoystick()
+    {
+        joystick.SetActive(false);
     }
 }

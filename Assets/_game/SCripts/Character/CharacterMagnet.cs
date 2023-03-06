@@ -12,17 +12,15 @@ public class CharacterMagnet : MonoBehaviour
 
         if (other.gameObject.CompareTag(CachedString.BRICK))
         {
-            GameObject brick = other.gameObject;
-            Brick brickComponent = brick.GetComponent<Brick>();
-            if(brick.transform.position.y - brickComponent.firstPosition.y > 1f) // chi an nhung fallen bricks duoi dat
+            Brick brickComponent = other.gameObject.GetComponent<Brick>();
+            if (!brickComponent.isGround)
             {
                 return;
             }
-            if(brickComponent.isGround)
-            if (brickComponent.materialType == character.materialType || brickComponent.materialType == MaterialType.Grey)
+            else if (brickComponent.materialType == character.materialType || brickComponent.materialType == MaterialType.Grey)
             {
                 brickComponent.isGround = false;
-                character.EatGroundBrick(brick);
+                character.EatGroundBrick(brickComponent);
             }
         }
     }

@@ -10,7 +10,8 @@ public class Elevator : MonoBehaviour
     private bool isOccupied = false;
     private Vector3 firstPosition;
     private Vector3 lastPosition;
-    private bool isMoving = false;
+    public bool isMoving = false;
+    public Transform beginSpot;
     IEnumerator MoveUp()
     {
         isMoving = true;
@@ -36,7 +37,7 @@ public class Elevator : MonoBehaviour
     private void Start()
     {
         firstPosition = transform.position;
-        lastPosition = firstPosition + Vector3.up * 20;
+        lastPosition = firstPosition + Vector3.up * 18.8f;
         speed = 6f;
         OpenDoor(door1);
         CloseDoor(door2);
@@ -51,9 +52,11 @@ public class Elevator : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("character"))
+        if (other.gameObject.CompareTag(CachedString.CHARACTER))
         {
-            other.GetComponent<Character>().maxPosY = 1000;
+            Character character = other.GetComponent<Character>();
+            character.maxPosY = 1000;
+            character.onElevator = true;
             other.transform.SetParent(this.transform);
             isOccupied = true;
             if (!isMoving)
@@ -61,13 +64,17 @@ public class Elevator : MonoBehaviour
                 CloseDoor(door1);
                 StopCoroutine(MoveDown());
                 StartCoroutine(MoveUp());
+
+
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("character"))
+        if (other.gameObject.CompareTag(CachedString.CHARACTER))
         {
+            Character character = other.GetComponent<Character>();
+            character.onElevator = false;
             other.transform.SetParent(null);
             isOccupied = false;
             if (!isMoving)

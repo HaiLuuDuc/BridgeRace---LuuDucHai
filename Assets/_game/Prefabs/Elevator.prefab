@@ -147,6 +147,8 @@ MonoBehaviour:
   door1: {fileID: 6657099720001767183}
   door2: {fileID: 6657099719699121357}
   speed: 10
+  isMoving: 0
+  beginSpot: {fileID: 0}
 --- !u!65 &6657099719360065280
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -158,8 +160,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.823401, y: 2.2114878, z: 4.401641}
-  m_Center: {x: 0.0006082058, y: 0.6057439, z: 0.9690709}
+  m_Size: {x: 4.823401, y: 4.7511797, z: 4.8406563}
+  m_Center: {x: 0.0006082058, y: 1.8755898, z: 0.5699911}
 --- !u!1 &6657099719448174551
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6657099719699121358
 Transform:
   m_ObjectHideFlags: 0
@@ -368,7 +370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6657099720001767168
 Transform:
   m_ObjectHideFlags: 0

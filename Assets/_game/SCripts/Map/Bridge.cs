@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class Bridge : MonoBehaviour
 {
-    [SerializeField] private Vector3 beginSpot;
-    [SerializeField] private Vector3 endSpot;
+    public Transform beginSpot;
+    public Transform endSpot;
     public Vector3 bridgeDirection;
     private void Start()
     {
-        beginSpot = gameObject.transform.Find("Begin").transform.position;
-        endSpot = gameObject.transform.Find("End").transform.position;
-        bridgeDirection = (endSpot - beginSpot).normalized;
+        bridgeDirection = (endSpot.position- beginSpot.position).normalized;
     }
 }

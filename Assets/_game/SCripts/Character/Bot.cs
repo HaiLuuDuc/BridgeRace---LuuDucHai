@@ -5,33 +5,38 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 public class Bot : Character
 {
-    
-
-    float minDistance;
-    IState currentState;
-    int randomIndex;
-    public int maxBrickCount;
-    GameObject bridges;
-    public bool isPassBridge = false;
-    GameObject usedBridge;
+    private float minDistance;
+    public Elevator elevator;
+    private int randomIndex;
+    Vector3 brickPosition;
+    public IState currentState;
     [SerializeField] public NavMeshAgent navMeshAgent;
     [SerializeField] private CameraFollow cameraFollow;
-    public Vector3 endSpot;
+    public int maxBrickCount;
+    public Transform endSpot;
+    public Transform beginSpot;
+    [SerializeField] private List<Transform> endSpotList = new List<Transform>();
+    [SerializeField] private List<Stage> stageList = new List<Stage>();
 
-    public IEnumerator WaitAndPatrol()
+
+    protected override IEnumerator WaitAndStandUp()
     {
-        yield return new WaitForSeconds(2f);
-        ChangeState(new PatrolState());
+        DeactiveNavMeshAgent();
+        currentState = null;
+        StartCoroutine(base.WaitAndStandUp());
+        ChangeAnim(CachedString.RUN);
+        ActiveNavMeshAgent();
+        ChangeState(new MoveToBrickState());
         yield return null;
     }
     public void Start()
     {
         // random color
         randomIndex = Random.Range(1, 3);
-        Debug.Log("Bot OnStart !!!");
         speed = 15f;
         while (ColorManager.instance.usedColorArray[randomIndex] == true) // tranh bots bi trung mau
         {
@@ -40,19 +45,25 @@ public class Bot : Character
         ChangeColor((MaterialType)randomIndex);
         ColorManager.instance.usedColorArray[randomIndex] = true;
         maxBrickCount = Random.Range(3, 6);
-        ChangeState(new PatrolState());
+        maxPosY = 1000f;
     }
 
     protected override void Update()
     {
         base.Update();
-        if (isFalling)
+        if (GameManger.Instance.isLose)
         {
-            currentState = null;
-            StartCoroutine(WaitAndPatrol());
+            ChangeState(new WinState());
+            return;
         }
+        if (GameManger.Instance.isWin)
+        {
+            ChangeState(new IdleState());
+            return;
+        }
+
         if (currentState != null) currentState.OnExecute(this);
-        Debug.Log(currentState);
+
     }
 
 
@@ -68,64 +79,105 @@ public class Bot : Character
             currentState.OnEnter(this);
         }
     }
-    protected override void OnNewStage(GameObject stage)
+    protected override void OnNewStage(Stage stage)
     {
         base.OnNewStage(stage);
-        maxPosY = transform.position.y;
 
-        if (stage.transform.Find(CachedString.BRIDGES).gameObject != bridges) {
-            bridges = stage.transform.Find(CachedString.BRIDGES).gameObject;
-            usedBridge = stage.transform.Find(CachedString.USED_BRIDGE).gameObject;
-            int randomIndex = Random.Range(0, bridges.transform.childCount);
-            if (bridges.transform.childCount > 0)
-            {
-                bridge = bridges.transform.GetChild(randomIndex).gameObject;  // xac dinh bridge de treo len 
-            }
-            else
-            {
-                bridge = usedBridge.transform.GetChild(0).gameObject;  // truong hop so luong bot nhieu hon so luong bridge thi dung chung bridge
-            }
-            bridge.transform.SetParent(usedBridge.transform);
-            direction = bridge.GetComponent<Bridge>().bridgeDirection + Vector3.up/10;
-            isPassBridge = false;
-            endSpot = bridge.transform.Find(CachedString.END).transform.position;
-
-        }
+        ChooseEndSpot();
         maxBrickCount = Random.Range(3, 6);
-        ChangeState(new PatrolState());
+
+        ChangeState(new MoveToBrickState());
+    }
+
+    private void ChooseEndSpot()
+    {
+        endSpot = endSpotList[stageList.IndexOf(stage)];
+    }
+    public void ActiveNavMeshAgent()
+    {
+        navMeshAgent.isStopped = false;
+        navMeshAgent.enabled = true;
+    }
+
+    public void DeactiveNavMeshAgent()
+    {
+        navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.velocity = Vector3.zero;
+        navMeshAgent.isStopped = true;
+        navMeshAgent.enabled = false;
     }
     public void MoveToNearestBrick()
     {
+        //tim vien gach gan nhat, sau do di chuyen den no
         minDistance = 100f;
-        Vector3 brickPosition = transform.position;
+        bool find = false;
         for (int i = 0; i < brickManager.groundBrickObjectList.Count; i++)
         {
-            GameObject brick = brickManager.groundBrickObjectList[i];
+            Brick brick = brickManager.groundBrickObjectList[i];
             if(brick != null)
-            if ((brick.gameObject.GetComponent<Brick>().materialType == materialType
-                || brick.gameObject.GetComponent<Brick>().materialType == MaterialType.Grey)
-                && brick.transform.parent.gameObject.name != CachedString.BALO)
+            if ((brick.materialType == materialType
+                || brick.materialType == MaterialType.Grey)
+                && brick.isGround)
             {
                 if (Vector3.Distance(transform.position, brick.transform.position) < minDistance)
                 {
                     minDistance = Vector3.Distance(transform.position, brick.transform.position);
                     brickPosition = brick.transform.position;
                     brickPosition.y = transform.position.y;
+                    find = true;
                 }
             }
         }
-        transform.position = Vector3.MoveTowards(transform.position, brickPosition, speed / 4 * Time.deltaTime);
+        if (!isFalling)
+        {
+            if (find)
+            {
+                navMeshAgent.SetDestination(brickPosition);
+            }
+            else
+            {
+                ChangeState(new IdleState());
+            }
+        }
+            
         transform.rotation = Quaternion.LookRotation(brickPosition - transform.position);
+        
     }
-    // iswin islose in gamemanager?
+
     protected override void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         if (other.gameObject.CompareTag(CachedString.WIN_ZONE))
         {
-            ChangeAnim(CachedString.WIN);
+            ChangeState(new WinState());
             GameManger.Instance.isLose = true;
             transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-            cameraFollow.container = this.GetComponent<Character>();
+            cameraFollow.container = this;
+        }
+        if (other.gameObject.CompareTag(CachedString.STEP))
+        {
+
+            if (other.gameObject.GetComponent<Step>().materialType != this.materialType)
+            {
+                if (baloBrickObjectList.Count > 0)
+                {
+                    StartCoroutine(other.gameObject.GetComponent<Step>().ChangeColorStep(materialType));
+                    DropBrick();
+                }
+            }
+        }
+        if(other.gameObject.CompareTag(CachedString.ELEVATOR_TRIGGER))
+        {
+            elevator =  other.gameObject.GetComponent<Elevator>();
+        }
+
+    }
+    protected override void OnTriggerExit(Collider other)
+    {
+        base.OnTriggerExit(other);
+        if (other.gameObject.CompareTag(CachedString.ELEVATOR_TRIGGER))
+        {
+            elevator = null;
         }
     }
 

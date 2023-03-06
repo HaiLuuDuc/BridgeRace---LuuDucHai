@@ -13,33 +13,51 @@ public class GameManger : MonoBehaviour
     {
         Instance= this;
     }
-    [SerializeField] public UIManager uiManager;
-    IEnumerator StartGame()
+    public void StartGame()
     {
-        uiManager.ShowIntro();
-        yield return new WaitForSeconds(1f);
         Time.timeScale = 0f;
-        uiManager.ShowClickToPlay();
+        UIManager.instance.ShowClickToPlay();
+        UIManager.instance.HideJoystick();
     }
 
     private void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();
-        StartCoroutine(StartGame());
+        OnInit();
     }
+    private void Update()
+    {
+        if(isWin)
+        {
+            UIManager.instance.ShowWinPanel();
+        }
+        else if(isLose)
+        {
+            UIManager.instance.ShowLosePanel();
+        }
+    }
+    private void OnInit() {
+        StartGame();
+    }
+    /*private void Update()
+    {
+        if(isWin || isLose)
+        {
+            Time.timeScale = 0f;
+        }
+    }*/
     public void ClickToPlay()
     {
         //turn off clicktoplay panel
-        uiManager.HideClickToPlay();
+        UIManager.instance.HideClickToPlay();
         Time.timeScale = 1f;
 
     }
     public void Replay()
     {
-        //reload prefab
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void Next()
     {
-        //change prefab
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

@@ -22,6 +22,9 @@ public class CachedString : MonoBehaviour
     public static string WIN_ZONE = "winZone";
     public static string WIN = "win";
     public static string BRIDGE_TRIGGER = "bridgeTrigger";
+    public static string RUN = "run";
+    public static string STAGE = "stage";
+    public static string ELEVATOR_TRIGGER = "elevatorTrigger";
 
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BrickManager : MonoBehaviour
 {
-    public List<GameObject> groundBrickObjectList = new List<GameObject>(); 
+    public List<Brick> groundBrickObjectList = new List<Brick>(); 
     [SerializeField] private GameObject brickTile;
     [SerializeField] private ColorManager colorManager;
 
@@ -16,16 +16,16 @@ public class BrickManager : MonoBehaviour
         //initial list of ground bricks
         for (int i = 0; i < brickTile.transform.childCount; i++)
         {
-            GameObject brick = brickTile.transform.GetChild(i).gameObject;
+            Brick brickComponent = brickTile.transform.GetChild(i).GetComponent<Brick>();
             randomIndex = Random.Range(0, 3);
-            brick.GetComponent<Brick>().ChangeColor((MaterialType)randomIndex);
+            brickComponent.ChangeColor((MaterialType)randomIndex);
 
             // tat physics cua brick
-            brick.GetComponent<Brick>().TurnOffPhysics();
+            brickComponent.TurnOffPhysics();
 
 
-            groundBrickObjectList.Add(brick);
-            brick.GetComponent<Brick>().HideRenderer(); // giau cac brick cho den khi character di vao stage
+            groundBrickObjectList.Add(brickComponent);
+            brickComponent.HideRenderer(); // giau cac brick cho den khi character di vao stage
 
         }
         

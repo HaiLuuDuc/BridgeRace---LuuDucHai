@@ -9,7 +9,6 @@ public class Brick : ObjectColor
     public bool isGround = true;
     [SerializeField] Rigidbody rb;
     [SerializeField] BoxCollider boxCollider;
-
     private void Start()
     {
         firstPosition= transform.position;

@@ -18,6 +18,7 @@ TagManager:
   - doorHigh
   - winZone
   - elevatorTrigger
+  - stage
   layers:
   - Default
   - TransparentFX
