@@ -7,10 +7,12 @@ public class ColorManager : MonoBehaviour
     public static ColorManager instance;
     private void Awake()
     {
-        
         instance = this;
     }
-    public Material[] materialArray = new Material[5]; // blue, red, green, grey, transparent
-    public bool[] usedColorArray = {true, false, false, false, true };
-
+    public bool[] usedColorArray = {true, true, true, false, false, false, false };
+    public List<MaterialType> characterColors = new List<MaterialType>();
+    private void Start()
+    {
+        characterColors.Add(MaterialType.Blue);
+    }
 }

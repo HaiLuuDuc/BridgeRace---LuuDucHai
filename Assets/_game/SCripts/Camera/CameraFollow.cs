@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    int baloCount = 0;
-    [SerializeField] public Character container;
     [SerializeField] private float speed;
+    int baloCount = 0;
+    public Character container;
     public Vector3 offset;
     public float space;
 

@@ -7,7 +7,6 @@ public class Step : ObjectColor
     [SerializeField] private MeshRenderer meshRenderer;
     public void Start()
     {
-        materialType = MaterialType.Transparent;
         ChangeColor(MaterialType.Transparent);
     }
     public IEnumerator ChangeColorStep(MaterialType materialType)
@@ -16,7 +15,7 @@ public class Step : ObjectColor
         {
             this.materialType = materialType;
             float elapsedTime = 0f;
-            float duration = 0.2f;
+            float duration = 0.25f;
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.deltaTime;

@@ -13,9 +13,13 @@ public class MovingEndspot : MonoBehaviour
     }
     void Update()
     {
-        if (bot.onBridge && bot.stage==this.stage)
+        if (bot != null)
         {
-            transform.position = bot.transform.position + offset;
+            if (bot.onBridge && bot.stage == this.stage)
+            {
+                transform.position = bot.transform.position + offset;
+            }
         }
+        
     }
 }

@@ -262,7 +262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &608622625
 Transform:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608622624}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -304,7 +304,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a41a7877d111014d93cb62c59f94535, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1629,8 +1629,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 21.13265, y: 3.352829, z: 15.651573}
-  m_Center: {x: 8.326272, y: -1.1764145, z: 1.0243073}
+  m_Size: {x: 21.13265, y: 3.352829, z: 16.399529}
+  m_Center: {x: 8.326272, y: -1.1764145, z: 0.6503296}
 --- !u!114 &1379688944310816942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2754,7 +2754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8961947899062760047, guid: 28c8373ce1f687546bb9203ea17d323d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.2
+      value: 15.4
       objectReference: {fileID: 0}
     - target: {fileID: 8961947899062760047, guid: 28c8373ce1f687546bb9203ea17d323d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2874,7 +2874,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 832788615, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760563822960939444, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Name
@@ -4315,7 +4315,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 832788615, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760563822960939444, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Name
@@ -6054,7 +6054,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 832788615, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760563822960939444, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Name
@@ -7002,7 +7002,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 832788615, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760563822960939444, guid: 6d258d5ab788c0a499961dba0f3542a7, type: 3}
       propertyPath: m_Name

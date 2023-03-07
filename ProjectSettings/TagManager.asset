@@ -19,6 +19,7 @@ TagManager:
   - winZone
   - elevatorTrigger
   - stage
+  - PLANE
   layers:
   - Default
   - TransparentFX

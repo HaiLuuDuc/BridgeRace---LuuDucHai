@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: ColorData
   m_EditorClassIdentifier: 
   materials:
+  - {fileID: 2100000, guid: 9a41a7877d111014d93cb62c59f94535, type: 2}
+  - {fileID: 2100000, guid: f8ff5524ffb27ba478442bd1bae6d3b0, type: 2}
   - {fileID: 2100000, guid: b50ecc9e0b18d694bac80b2f9ec2671d, type: 2}
   - {fileID: 2100000, guid: 2a3d61fec4e5146488c74661dcb7388a, type: 2}
   - {fileID: 2100000, guid: 78851909d2197a14cb532e3f6882f0ba, type: 2}
-  - {fileID: 2100000, guid: f8ff5524ffb27ba478442bd1bae6d3b0, type: 2}
-  - {fileID: 2100000, guid: 9a41a7877d111014d93cb62c59f94535, type: 2}
+  - {fileID: 2100000, guid: 4d194f980589eee468b8ff3a0122726d, type: 2}
+  - {fileID: 2100000, guid: 2c305ce7e419e1f43ab38203350df546, type: 2}

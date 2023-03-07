@@ -17,8 +17,8 @@ public class BrickManager : MonoBehaviour
         for (int i = 0; i < brickTile.transform.childCount; i++)
         {
             Brick brickComponent = brickTile.transform.GetChild(i).GetComponent<Brick>();
-            randomIndex = Random.Range(0, 3);
-            brickComponent.ChangeColor((MaterialType)randomIndex);
+            randomIndex = Random.Range(0, ColorManager.instance.characterColors.Count);
+            brickComponent.ChangeColor((MaterialType)ColorManager.instance.characterColors[randomIndex]);
 
             // tat physics cua brick
             brickComponent.TurnOffPhysics();

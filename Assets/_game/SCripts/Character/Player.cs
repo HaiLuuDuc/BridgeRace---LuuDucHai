@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Player : Character
 {
-    float joystickRadius = 120f;
-    Vector3 firstMousePosition;
-    Vector3 currentMousePosition;
+    private float joystickRadius = 120f;
+    private Vector3 firstMousePosition;
+    private Vector3 currentMousePosition;
     [SerializeField] private GameObject joystick;
     [SerializeField] private GameObject joystickBackground;
     [SerializeField] private GameObject joystickHandle;
@@ -56,7 +56,7 @@ public class Player : Character
                     }
                     else if (onBridge && direction.y < 0.1f)
                     {
-                        rb.velocity = new Vector3((float)direction.normalized.x, -bridgeDirection.y+0.3f, (float)direction.normalized.y) * speed / 1.5f;
+                        rb.velocity = new Vector3((float)direction.normalized.x, -bridgeDirection.y, (float)direction.normalized.y) * speed / 1.5f;
                     }
                     else
                     { 

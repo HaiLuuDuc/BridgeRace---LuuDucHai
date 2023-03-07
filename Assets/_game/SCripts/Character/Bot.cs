@@ -9,18 +9,18 @@ using UnityEngine.WSA;
 
 public class Bot : Character
 {
-    private float minDistance;
-    public Elevator elevator;
-    private int randomIndex;
-    Vector3 brickPosition;
-    public IState currentState;
-    [SerializeField] public NavMeshAgent navMeshAgent;
     [SerializeField] private CameraFollow cameraFollow;
+    [SerializeField] private List<Transform> endSpotList = new List<Transform>();
+    [SerializeField] private List<Stage> stageList = new List<Stage>();
+    private float minDistance;
+    private int randomIndex;
+    private Vector3 brickPosition;
+    public NavMeshAgent navMeshAgent;
+    public Elevator elevator;
+    public IState currentState;
     public int maxBrickCount;
     public Transform endSpot;
     public Transform beginSpot;
-    [SerializeField] private List<Transform> endSpotList = new List<Transform>();
-    [SerializeField] private List<Stage> stageList = new List<Stage>();
 
 
     protected override IEnumerator WaitAndStandUp()
@@ -36,16 +36,16 @@ public class Bot : Character
     public void Start()
     {
         // random color
-        randomIndex = Random.Range(1, 3);
+        randomIndex = Random.Range(3,7);
         speed = 15f;
         while (ColorManager.instance.usedColorArray[randomIndex] == true) // tranh bots bi trung mau
         {
-            randomIndex = Random.Range(1, 3);
+            randomIndex = Random.Range(3,7);
         }
-        ChangeColor((MaterialType)randomIndex);
         ColorManager.instance.usedColorArray[randomIndex] = true;
+        ChangeColor((MaterialType)randomIndex);
+        ColorManager.instance.characterColors.Add(this.materialType);
         maxBrickCount = Random.Range(3, 6);
-        maxPosY = 1000f;
     }
 
     protected override void Update()

@@ -16,7 +16,7 @@ public class Character : ObjectColor
     [SerializeField] private CharacterMagnet characterMagnet;
     [SerializeField] private GameObject balo;
     [SerializeField] protected Bridge bridge;
-    private float brickHeight = 0.5f;
+    private float brickHeight = 0.4f;
     protected Vector3 bridgeDirection;
     protected string currentAnimName = CachedString.IDLE;
     public Rigidbody rb;
