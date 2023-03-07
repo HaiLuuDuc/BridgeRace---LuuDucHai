@@ -24,8 +24,9 @@ public class MoveToEndState : IState
                 bot.navMeshAgent.SetDestination(bot.endSpot.transform.position);
             }
         }
-
-            bot.direction = bot.navMeshAgent.velocity.normalized;
+        if(bot.navMeshAgent!=null)
+        {
+            bot.direction = bot.navMeshAgent.velocity;
             bot.transform.rotation = Quaternion.LookRotation(new Vector3(bot.direction.x, 0, bot.direction.z));
             bot.navMeshAgent.SetDestination(bot.endSpot.transform.position);
             if (bot.baloBrickObjectList.Count == 0 && !bot.isFalling)
@@ -34,6 +35,8 @@ public class MoveToEndState : IState
                 bot.navMeshAgent.isStopped = true;
                 bot.ChangeState(new MoveToBrickState());
             }
+        }
+            
   
         
     }

@@ -151,7 +151,6 @@ public class Character : ObjectColor
             {
                 isFalling = true;
                 FallAllBricks();
-                ChangeAnim(CachedString.FALL);
                 characterMagnet.gameObject.SetActive(false);
                 StartCoroutine(WaitAndStandUp());
             }

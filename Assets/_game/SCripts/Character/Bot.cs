@@ -19,13 +19,13 @@ public class Bot : Character
     public IState currentState;
     public int maxBrickCount;
     public Transform endSpot;
-
+    private bool isOnNavMesh = false;
 
     protected override IEnumerator WaitAndStandUp()
     {
         DeactiveNavMeshAgent();
         currentState = null;
-        StartCoroutine(base.WaitAndStandUp());
+        yield return StartCoroutine(base.WaitAndStandUp());
         ChangeAnim(CachedString.RUN);
         ActiveNavMeshAgent();
         ChangeState(new MoveToBrickState());
@@ -49,13 +49,22 @@ public class Bot : Character
     protected override void Update()
     {
         base.Update();
+
+        /*bool isOnNavMesh = false;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(navMeshAgent.transform.position, out hit, navMeshAgent.height * 0.5f, NavMesh.AllAreas))
+        {
+            isOnNavMesh = hit.hit;
+        }*/
         if (GameManger.Instance.isLose)
         {
+            DeactiveNavMeshAgent();
             ChangeState(new WinState());
             return;
         }
         if (GameManger.Instance.isWin)
         {
+            DeactiveNavMeshAgent();
             ChangeState(new IdleState());
             return;
         }
@@ -92,16 +101,24 @@ public class Bot : Character
     }
     public void ActiveNavMeshAgent()
     {
-        navMeshAgent.isStopped = false;
-        navMeshAgent.enabled = true;
+        if(navMeshAgent.enabled == false)
+        {
+            navMeshAgent.enabled = true;
+            navMeshAgent.isStopped = false;
+        }
+        
+
     }
 
     public void DeactiveNavMeshAgent()
     {
-        navMeshAgent.SetDestination(transform.position);
-        navMeshAgent.velocity = Vector3.zero;
-        navMeshAgent.isStopped = true;
-        navMeshAgent.enabled = false;
+        if (navMeshAgent.enabled == true)
+        {
+            navMeshAgent.velocity = Vector3.zero;
+            navMeshAgent.isStopped = true;
+            navMeshAgent.enabled = false;
+        }
+        
     }
     public void MoveToNearestBrick()
     {

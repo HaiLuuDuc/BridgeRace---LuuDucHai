@@ -113,3 +113,4 @@ MonoBehaviour:
   renderer: {fileID: 3681205278691509835}
   skinnedRenderer: {fileID: 0}
   meshRenderer: {fileID: 3681205278691509835}
+  whiteMaterial: {fileID: 2100000, guid: 82653994a53221047a4507756f9c3697, type: 2}
