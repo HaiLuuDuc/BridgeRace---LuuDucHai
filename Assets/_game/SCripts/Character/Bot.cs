@@ -13,14 +13,12 @@ public class Bot : Character
     [SerializeField] private List<Transform> endSpotList = new List<Transform>();
     [SerializeField] private List<Stage> stageList = new List<Stage>();
     private float minDistance;
-    private int randomIndex;
     private Vector3 brickPosition;
     public NavMeshAgent navMeshAgent;
     public Elevator elevator;
     public IState currentState;
     public int maxBrickCount;
     public Transform endSpot;
-    public Transform beginSpot;
 
 
     protected override IEnumerator WaitAndStandUp()
@@ -36,7 +34,7 @@ public class Bot : Character
     public void Start()
     {
         // random color
-        randomIndex = Random.Range(3,7);
+        int randomIndex = Random.Range(3,7);
         speed = 15f;
         while (ColorManager.instance.usedColorArray[randomIndex] == true) // tranh bots bi trung mau
         {
@@ -82,7 +80,6 @@ public class Bot : Character
     protected override void OnNewStage(Stage stage)
     {
         base.OnNewStage(stage);
-
         ChooseEndSpot();
         maxBrickCount = Random.Range(3, 6);
 
