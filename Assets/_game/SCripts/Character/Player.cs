@@ -99,7 +99,6 @@ public class Player : Character
         base.OnTriggerEnter(other);
         if (other.gameObject.CompareTag(CachedString.STEP))
         {
-
             if (other.gameObject.GetComponent<Step>().materialType != this.materialType)
             {
                 if (baloBrickObjectList.Count > 0 && other.gameObject.transform.TransformPoint(other.transform.localPosition).y > maxPosY)
@@ -113,7 +112,6 @@ public class Player : Character
             {
                 maxPosY = other.gameObject.transform.TransformPoint(other.transform.localPosition).y ;
             }
-
         }
         if (other.gameObject.CompareTag(CachedString.WIN_ZONE))
         {

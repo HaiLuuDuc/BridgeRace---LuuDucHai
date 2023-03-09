@@ -24,7 +24,6 @@ public class Brick : ObjectColor
             transform.localRotation = Quaternion.Euler(Vector3.zero);
             yield return null;
         }
-
     }
     public void HideRenderer()
     {

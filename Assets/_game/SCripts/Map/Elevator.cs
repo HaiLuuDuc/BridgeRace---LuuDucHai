@@ -7,7 +7,6 @@ public class Elevator : MonoBehaviour
     [SerializeField] private GameObject door1;
     [SerializeField] private GameObject door2;
     [SerializeField] private float speed;
-    private bool isOccupied = false;
     private Vector3 firstPosition;
     private Vector3 lastPosition;
     public bool isMoving = false;
@@ -58,7 +57,6 @@ public class Elevator : MonoBehaviour
             character.maxPosY = 1000;
             character.onElevator = true;
             other.transform.SetParent(this.transform);
-            isOccupied = true;
             if (!isMoving)
             {
                 CloseDoor(door1);
@@ -76,7 +74,6 @@ public class Elevator : MonoBehaviour
             Character character = other.GetComponent<Character>();
             character.onElevator = false;
             other.transform.SetParent(null);
-            isOccupied = false;
             if (!isMoving)
             {
                 CloseDoor(door2);

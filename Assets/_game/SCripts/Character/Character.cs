@@ -149,9 +149,9 @@ public class Character : ObjectColor
             if (other.gameObject.GetComponent<Character>().baloBrickObjectList.Count > baloBrickObjectList.Count
                 && !other.gameObject.GetComponent<Character>().onBridge && !this.onBridge &&!this.isFalling)
             {
-                isFalling = true;
                 FallAllBricks();
                 characterMagnet.gameObject.SetActive(false);
+                isFalling = true;
                 StartCoroutine(WaitAndStandUp());
             }
         }

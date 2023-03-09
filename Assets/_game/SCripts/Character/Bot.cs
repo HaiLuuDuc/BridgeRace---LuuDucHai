@@ -19,7 +19,6 @@ public class Bot : Character
     public IState currentState;
     public int maxBrickCount;
     public Transform endSpot;
-    private bool isOnNavMesh = false;
 
     protected override IEnumerator WaitAndStandUp()
     {
